@@ -1,12 +1,6 @@
 import "../styles/PlushieItem.css"
 import { useState } from 'react';
 
-// This component displays a single plushie item
-// const plushieData = [
-//     { name: "Strawberry Korilakkuma Plushie", type: "Rilakkuma", price: 35, size: "medium", 
-//     numOfLikes: 20, isAvailable: True}
-//   ]
-
 export default function PlushieItem(props) {
     const [count, setCount] = useState(0) // keep track of the count of current item
 
@@ -14,6 +8,12 @@ export default function PlushieItem(props) {
         e.preventDefault()
         setCount(count + 1)
         props.addToCart(props.item.name, props.item.price)
+    }
+
+    const handleButtonRemoveCart = e => {
+        e.preventDefault()
+        setCount(count - 1)
+        props.removeFromCart(props.item.name, props.item.price)
     }
 
     return (
@@ -26,6 +26,10 @@ export default function PlushieItem(props) {
                 <h3>{props.item.price}</h3>
                 <button className='add-button' onClick={handleButtonAddCart}>
                     Add to Cart
+                </button>
+                <button className='remove-button' onClick={handleButtonRemoveCart}>
+                    Remove From Cart
+
                 </button>
             </div>
         </div>

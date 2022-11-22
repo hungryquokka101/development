@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
 import PlushieItem from "./components/PlushieItem.js";
+import Cart from "./components/Cart.js";
 import { useState } from 'react';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
-import { MDBRadio } from 'mdb-react-ui-kit';
-import Button from 'react-bootstrap/Form';
 
+// plushie data
 const plushieData = [
   { name: "Strawberry Korilakkuma Plushie", type: "Rilakkuma", price: 35, size: "Medium", 
   numOfLikes: 50, isAvailable: "true", 
-  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/o/n/online_bl_-34_1.jpg"},
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/o/n/online_bl_-33_1.jpg"},
   
   { name: "Rilakkuma Hamsters Plushie", type: "Rilakkuma", price: 29.9, size: "Small", numOfLikes: 30, isAvailable: "false",
-  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20221020_264.jpg"},
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20221020_263.jpg"},
   
   { name: "My Neighbor Totoro Otedama Plushie", type: "Totoro", price: 89.9, size: "Large", numOfLikes: 25, isAvailable: "true",
-  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20211015_261.jpg"},
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20211015_259.jpg"},
 
   { name: "My Neighbor Totoro with Leaf Plushie", type: "Totoro", price: 29.9, size: "Medium", numOfLikes: 35, isAvailable: "false",
-  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20200512_099.jpg"},
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20200512_098.jpg"},
 
   { name: "Mochi Shiba Detective Plushie", type: "Chuken Mochi Shiba", price: 13.2, size: "Small", numOfLikes: 29, isAvailable: "true",
   image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20210621_054.jpg"},
@@ -27,31 +24,79 @@ const plushieData = [
   { name: "Mochi Shiba Dango Plushie", type: "Chuken Mochi Shiba", price: 16.9, size: "Medium", numOfLikes: 28, isAvailable: "true",
   image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20210621_050.jpg"},
 
-  { name: "Sumikko Gurashi Ice Cream Plushie Cushion", type: "Sumikko Gurashi", price: 35.9, size: "Large", numOfLikes: 43, isAvailable: "false",
-  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20210915_149.jpg"}
+  { name: "Sumikko Gurashi Ice Cream Plushie Cushion", type: "Sumikko Gurashi", price: 35.9, size: "Large", numOfLikes: 52, isAvailable: "false",
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20210915_149.jpg"},
+
+  { name: "Rilakkuma Christmas Plushie", type: "Rilakkuma", price: 36.9, size: "Medium", numOfLikes: 33, isAvailable: "true",
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/o/n/online_bl_-221_1.jpg"},
+
+  { name: "Sumikko Gurashi Egg Plushie", type: "Sumikko Gurashi", price: 14.9, size: "Medium", numOfLikes: 49, isAvailable: "true",
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20211022_139.jpg"},
+
+  { name: "Tuxedosam Fluffy Pastel Luminous Plushie", type: "Tuxedosam", price: 32.9, size: "Medium", numOfLikes: 47, isAvailable: "true",
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20210625_145.jpg"},
+
+  { name: "Chuken Mochi Shiba Dango Plushie", type: "Chuken Mochi Shiba", price: 16.9, size: "Medium", numOfLikes: 53, isAvailable: "false",
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20210621_026.jpg"},
+
+  { name: "Tuxedosam Blushing Nostalgic Sitting Plushie", type: "Tuxedosam", price: 24.9, size: "Medium", numOfLikes: 48, isAvailable: "true",
+  image: "https://www.blippo.com/media/catalog/product/cache/4/small_image/295x295/9df78eab33525d08d6e5fb8d27136e95/2/0/20221119-284.jpg"}
 ]
-
-// const filter_types = ["Type", "Size", "Availability"]
-// const categories = ["Rilakkuma", "Totoro", "Chuken Mochi Shiba", "Sumikko Gurashi"]
-// const sizes = ["Small", "Medium", "Large"]
-// const availabilities = ["true", false]
-
-/*
-  const bakeryData = [
-    { name: “Bread”, type: “bread”, price: 12},
-    { name: “Croissant”, type: “bread”, price: 7},
-    { name: “Cake”, type: “cake”, price: 20},
-  ]
-
-  Filtering: type, size, availability; Sorting: popularity, price
-*/
-
 
 function App() {
   const [type, setType] = useState("All") // keep track of the selected type
   const [size, setSize] = useState("All") // keep track of the selected size
   const [availability, setAvailability] = useState("All") // keep track of the selected availability
   const [sortType, setSortType] = useState("None")
+
+  // state variables for the cart and the total price
+  const [cart, setCart] = useState(new Map())
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  // method that adds an item to the cart
+  const addToCart = (productName, productPrice) => {
+    const newCart = new Map(cart)
+  
+    if (newCart.has(productName)) {
+      var currCount = newCart.get(productName)
+      newCart.set(productName, currCount + 1)
+    } else {
+      newCart.set(productName, 1)
+    }
+    setCart(newCart)
+
+    // update total price
+    var newPrice = totalPrice + productPrice
+    if (newPrice < 0) {
+      newPrice = 0
+    }
+    setTotalPrice(newPrice)
+  }
+
+  const removeFromCart = (productName, productPrice) => {
+    const newCart = new Map(cart)
+
+    // only update cart if the product to remove is in it
+    if (newCart.has(productName) && newCart.get(productName) > 0) {
+      var currCount = newCart.get(productName)
+
+      // remove item from cart if its count is 0
+      if (currCount - 1 <= 0) {
+        newCart.delete(productName)
+      } else {
+        newCart.set(productName, currCount - 1)
+      }
+      
+      setCart(newCart)
+
+      // update total price
+      var newPrice = totalPrice - productPrice
+      if (newPrice < 0) {
+        newPrice = 0
+      }
+      setTotalPrice(newPrice)
+    }
+  }
 
   const handleButtonTypeFilter = e => {
     setType(e.target.value)
@@ -93,20 +138,6 @@ function App() {
     setAvailability("All")
     setSortType("None")
   }
-
-  // const matchesSortType = (value) => {
-  //   if (value === "Popularity") {
-  //     const sortedData = filteredData.sort((a, b) => {
-  //       return b.numOfLikes - a.numOfLikes;
-  //     })
-  //     setDisplayData(sortedData)
-  //   } else if (value === "Price") {
-  //     const sortedData = filteredData.sort((a, b) => {
-  //       return a.price - b.price;
-  //     })
-  //     setDisplayData(sortedData)
-  //   } 
-  // }
   
   return (
     <div className="App">
@@ -117,13 +148,14 @@ function App() {
 
           {/* filtering buttons */}
           <div className="filter-div">
-            <h3>Type</h3>
+            <h3>Character</h3>
             <div className="type-filter-nav" onChange={handleButtonTypeFilter}>
               <input type="radio" value="All" name="Type" /> All
               <input type="radio" value="Rilakkuma" name="Type" /> Rilakkuma
               <input type="radio" value="Totoro" name="Type" /> Totoro
               <input type="radio" value="Chuken Mochi Shiba" name="Type" /> Chuken Mochi Shiba
               <input type="radio" value="Sumikko Gurashi" name="Type" /> Sumikko Gurashi
+              <input type="radio" value="Tuxedosam" name="Type" /> Tuxedosam
             </div>
 
             <h3>Size</h3>
@@ -140,24 +172,6 @@ function App() {
               <input type="radio" value="true" name="Availability" /> Available
               <input type="radio" value="false" name="Availability" /> Not Available
             </div>
-
-            {/* <Nav className="type-filter-nav">
-              <Nav.Item>
-                <Button as="input" type="button" value="All" onClick={handleButtonTypeFilter}/>
-              </Nav.Item>
-              <Nav.Item>
-                <Button as="input" type="button" value="Rilakkuma" onClick={handleButtonTypeFilter}/>
-              </Nav.Item>
-              <Nav.Item>
-                <Button as="input" type="button" value="Totoro" onClick={handleButtonTypeFilter}/>
-              </Nav.Item>
-              <Nav.Item>
-                <Button as="input" type="button" value="Chuken Mochi Shiba" onClick={handleButtonTypeFilter}/>
-              </Nav.Item>
-              <Nav.Item>
-                <Button as="input" type="button" value="Sumikko Gurashi" onClick={handleButtonTypeFilter}/>
-              </Nav.Item>
-            </Nav> */}
           </div>
 
           {/* sorting */}
@@ -173,7 +187,7 @@ function App() {
           {/* display filtered data */}
           <div className="filtered-plushies-div">
             {sortedData.map((item) => ( // map plushieData to plushieItem components
-                  <PlushieItem item = {item} />
+                  <PlushieItem item = {item} addToCart={addToCart} removeFromCart={removeFromCart}/>
             ))}
           </div>
 
@@ -182,6 +196,7 @@ function App() {
           </div>
         </div>
       
+      <Cart cart={cart} totalPrice={totalPrice} />
       </div>
     </div>
   );
