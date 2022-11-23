@@ -1,6 +1,6 @@
 export default function Cart(props) {
     return (
-        <div className="cart-div">
+        <div className="cart">
             <h2>Cart</h2>
 
             {/* render a list of items in the cart */}

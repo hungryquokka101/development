@@ -1,5 +1,12 @@
 import "../styles/PlushieItem.css"
 import { useState } from 'react';
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 export default function PlushieItem(props) {
     const [count, setCount] = useState(0) // keep track of the count of current item
@@ -17,21 +24,28 @@ export default function PlushieItem(props) {
     }
 
     return (
-        <div className="plushie-item-box">
-           <img src={props.item.image}></img>
-           <h3>{props.item.name}</h3>
-           <h3>{props.item.size}</h3>
-
-           <div className="footer">
-                <h3>{props.item.price}</h3>
-                <button className='add-button' onClick={handleButtonAddCart}>
-                    Add to Cart
-                </button>
-                <button className='remove-button' onClick={handleButtonRemoveCart}>
-                    Remove From Cart
-
-                </button>
-            </div>
-        </div>
+        // CITATION: card component from material UI: https://mui.com/material-ui/react-card/
+        <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+                component="img"
+                height="350"
+                image={props.item.image}
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                {props.item.name}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                Size: {props.item.size}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                Price: ${props.item.price}
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button size="large" onClick={handleButtonAddCart}>Add to Cart</Button>
+                <Button size="large" onClick={handleButtonRemoveCart}>Remove from Cart</Button>
+            </CardActions>
+        </Card>
     )
 }
