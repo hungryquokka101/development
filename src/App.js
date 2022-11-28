@@ -200,7 +200,7 @@ function App() {
         </div>
 
         <div className="cart-div">
-          <Cart cart={cart} totalPrice={totalPrice} />
+          <Cart cart={cart} totalPrice={totalPrice.toFixed(2)} />
         </div>
       </div>
     </div>
