@@ -2,6 +2,12 @@ import './App.css';
 import PlushieItem from "./components/PlushieItem.js";
 import Cart from "./components/Cart.js";
 import Button from '@mui/material/Button';
+import { RadioGroup } from '@mui/material';
+import { FormControl } from '@mui/material';
+import { FormLabel } from '@mui/material';
+import { FormControlLabel } from '@mui/material';
+import { Radio } from '@mui/material';
+
 import { useState } from 'react';
 
 // plushie data
@@ -137,7 +143,6 @@ function App() {
     setType("All")
     setSize("All")
     setAvailability("All")
-    setSortType("None")
   }
   
   return (
@@ -149,41 +154,62 @@ function App() {
             {/* filtering buttons */}
             <div className="filter-div">
               <h3>Character</h3>
-              <div className="type-filter-nav" onChange={handleButtonTypeFilter}>
-                <input type="radio" value="All" name="Type" /> All
-                <input type="radio" value="Rilakkuma" name="Type" /> Rilakkuma
-                <input type="radio" value="Totoro" name="Type" /> Totoro
-                <input type="radio" value="Chuken Mochi Shiba" name="Type" /> Chuken Mochi Shiba
-                <input type="radio" value="Sumikko Gurashi" name="Type" /> Sumikko Gurashi
-                <input type="radio" value="Tuxedosam" name="Type" /> Tuxedosam
-              </div>
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="All"
+                  name="radio-buttons-group"
+                  value={type}
+                  onChange={handleButtonTypeFilter}
+                >
+                  <FormControlLabel value="All" control={<Radio />} label="All" />
+                  <FormControlLabel value="Rilakkuma" control={<Radio />} label="Rilakkuma" />
+                  <FormControlLabel value="Totoro" control={<Radio />} label="Totoro" />
+                  <FormControlLabel value="Chuken Mochi Shiba" control={<Radio />} label="Chuken Mochi Shiba" />
+                  <FormControlLabel value="Sumikko Gurashi" control={<Radio />} label="Sumikko Gurashi" />
+                  <FormControlLabel value="Tuxedosam" control={<Radio />} label="Tuxedosam" />
+                </RadioGroup>
 
-              <h3>Size</h3>
-              <div className="type-filter-nav" onChange={handleButtonSizeFilter}>
-                <input type="radio" value="All" name="Size" /> All
-                <input type="radio" value="Small" name="Size" /> Small
-                <input type="radio" value="Medium" name="Size" /> Medium
-                <input type="radio" value="Large" name="Size" /> Large
-              </div>
+                <h3>Size</h3>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="All"
+                  name="radio-buttons-group"
+                  value={size}
+                  onChange={handleButtonSizeFilter}
+                >
+                  <FormControlLabel value="All" control={<Radio />} label="All" />
+                  <FormControlLabel value="Small" control={<Radio />} label="Small" />
+                  <FormControlLabel value="Medium" control={<Radio />} label="Medium" />
+                  <FormControlLabel value="Large" control={<Radio />} label="Large" />
+                </RadioGroup>
 
-              <h3>Availability</h3>
-              <div className="type-filter-nav" onChange={handleButtonAvailabilityFilter}>
-                <input type="radio" value="All" name="Availability" /> All
-                <input type="radio" value="true" name="Availability" /> Available
-                <input type="radio" value="false" name="Availability" /> Not Available
-              </div>
+                <h3>Availability</h3>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="All"
+                  name="radio-buttons-group"
+                  value={availability}
+                  onChange={handleButtonAvailabilityFilter}
+                >
+                  <FormControlLabel value="All" control={<Radio />} label="All" />
+                  <FormControlLabel value="true" control={<Radio />} label="true" />
+                  <FormControlLabel value="false" control={<Radio />} label="false" />
+                </RadioGroup>
+
+                <h3>Sort By: </h3>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="Popularity"
+                  name="radio-buttons-group"
+                  value={sortType}
+                  onChange={handleSortType}
+                >
+                  <FormControlLabel value="Popularity" control={<Radio />} label="Popularity" />
+                  <FormControlLabel value="Price" control={<Radio />} label="Price" />
+                </RadioGroup>
+              </FormControl>
             </div>
-
-            {/* sorting */}
-            <div className="sort-div">
-              <h3>Sort By: </h3>
-              <div className="sort-radio-div" onChange={handleSortType}>
-                {/* <input type="radio" value="None" name="sort" /> None */}
-                <input type="radio" value="Popularity" name="sort" /> Popularity
-                <input type="radio" value="Price" name="sort" /> Price
-              </div>
-            </div>
-
             <div>
               <br></br>
               <Button size="large" onClick={handleButtonReset}>Reset</Button>
